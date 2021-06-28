@@ -50,3 +50,43 @@
         ]
     }
     ```
+#### Access Type
+- Programmatic access
+    - Enables an access key ID and secret access key for the AWS API, CLI, SDK, and other development tools.
+    - Granted for applications that needs AWS access.
+- AWS Management Console access
+    - Enables a password that allows users to sign-in to the AWS Management Console.
+    - Granted to people to login to the AWS console.
+
+#### IAM: Policies
+- Policies could be attached at group level.
+    - For example, if a policy is attached to "Developers" group, all the users in the "Developers group" will inherit the policies.
+##### Policy Structure
+- Consists of:
+    - Version - policy language version. Ex: "Version": "2012-10-17"
+    ```
+    "Version": "2012-10-17"
+    ```
+    - Id - identifier for the policy(optional).
+    - Statements - one or more individual statements(Required).
+- Each statement consists of:
+    - Sid: identifier for the statement(optional).
+    - Effect: whether the statement allows or denies access(Allow, Deny)
+    - Principal: user/group/role to which this policy is applied to.
+    - Action: list of actions this policy allows or denies.
+    - Resource: list of resources to which the actions are applied to.
+    - Conditions: Conditions for when the policy should be in effect.(Optional)
+    - Example:
+        ```
+        {
+                "Sid": "ListAndDescribe",   // Sid
+                "Effect": "Allow",          // Effect - Allow
+                "Action": [                 // List of actions
+                    "dynamodb:List*",
+                    "dynamodb:DescribeReservedCapacity*",
+                    "dynamodb:DescribeLimits",
+                    "dynamodb:DescribeTimeToLive"
+                ],
+                "Resource": "*"             // Resources(In this case, all the resources)
+            }
+        ```
